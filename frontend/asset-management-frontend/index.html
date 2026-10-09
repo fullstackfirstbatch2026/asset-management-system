@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AssetFlow - Asset Management System</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            Asset<span>Flow</span>
+        </div>
+
+        <div class="nav-title">
+            Main Menu
+        </div>
+
+        <nav class="nav-menu">
+
+            <button class="active"
+                    onclick="showSection('dashboard', this)">
+                Dashboard
+            </button>
+
+            <button onclick="showSection('employees', this)">
+                Employees
+            </button>
+
+            <button onclick="showSection('assets', this)">
+                Assets
+            </button>
+
+            <button onclick="showSection('assetTypes', this)">
+                Asset Types
+            </button>
+
+            <button onclick="showSection('allocations', this)">
+                Allocations
+            </button>
+
+            <button onclick="showSection('joinSection', this)">
+                Allocation Report
+            </button>
+
+            <button onclick="showSection('reportsSection', this)">
+                Asset Reports
+            </button>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="page-title"
+                 id="pageTitle">
+                Dashboard
+            </div>
+
+            <div class="date-text"
+                 id="todayDate">
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <div class="content">
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard"
+                     class="section">
+
+                <div class="welcome-card">
+
+                    <h1>
+                        Welcome to AssetFlow
+                    </h1>
+
+                    <p>
+                        Manage company employees, assets,
+                        asset types and allocations in one place.
+                    </p>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <h4>
+                            Total Employees
+                        </h4>
+
+                        <h2 id="employeeCount">
+                            0
+                        </h2>
+
+                        <p>
+                            Registered employees
+                        </p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <h4>
+                            Total Assets
+                        </h4>
+
+                        <h2 id="assetCount">
+                            0
+                        </h2>
+
+                        <p>
+                            Company assets
+                        </p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <h4>
+                            Available Assets
+                        </h4>
+
+                        <h2 id="availableCount">
+                            0
+                        </h2>
+
+                        <p>
+                            Assets ready for allocation
+                        </p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <h4>
+                            Allocations
+                        </h4>
+
+                        <h2 id="allocationCount">
+                            0
+                        </h2>
+
+                        <p>
+                            Total asset allocations
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                            <p>
+                                Manage your asset system quickly
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <button class="quick-action"
+                                onclick="showSection('employees')">
+
+                            <h4>
+                                Add Employee
+                            </h4>
+
+                            <p>
+                                Register a new employee
+                            </p>
+
+                        </button>
+
+
+                        <button class="quick-action"
+                                onclick="showSection('assets')">
+
+                            <h4>
+                                Add Asset
+                            </h4>
+
+                            <p>
+                                Register a company asset
+                            </p>
+
+                        </button>
+
+
+                        <button class="quick-action"
+                                onclick="showSection('allocations')">
+
+                            <h4>
+                                Allocate Asset
+                            </h4>
+
+                            <p>
+                                Assign an asset to an employee
+                            </p>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT ALLOCATIONS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Recent Allocations
+                            </h3>
+
+                            <p>
+                                Latest asset allocations
+                            </p>
+
+                        </div>
+
+                        <button class="secondary-button"
+                                onclick="showSection('allocations')">
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div id="recentAllocations"
+                         class="recent-list">
+
+                        <div class="empty-message">
+                            Loading...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= EMPLOYEES ================= -->
+
+            <section id="employees"
+                     class="section hidden">
+
+                <div class="section-header">
+
+                    <h2>
+                        Employees
+                    </h2>
+
+                    <p>
+                        Add and manage company employees.
+                    </p>
+
+                </div>
+
+
+                <!-- ADD EMPLOYEE -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Add Employee
+                            </h3>
+
+                            <p>
+                                Enter employee details
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Employee Name
+                            </label>
+
+                            <input type="text"
+                                   id="employeeName"
+                                   placeholder="Enter employee name">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Email
+                            </label>
+
+                            <input type="email"
+                                   id="employeeEmail"
+                                   placeholder="Enter email">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Department
+                            </label>
+
+                            <input type="text"
+                                   id="employeeDepartment"
+                                   placeholder="Enter department">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Phone
+                            </label>
+
+                            <input type="text"
+                                   id="employeePhone"
+                                   placeholder="Enter phone number">
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="primary-button form-button"
+                            onclick="addEmployee()">
+
+                        Add Employee
+
+                    </button>
+
+                </div>
+
+
+                <!-- EMPLOYEE LIST -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Employee List
+                            </h3>
+
+                            <p>
+                                All registered employees
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container"
+                         id="employeeList">
+
+                        <div class="empty-message">
+                            Loading employees...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ASSETS ================= -->
+
+            <section id="assets"
+                     class="section hidden">
+
+                <div class="section-header">
+
+                    <h2>
+                        Assets
+                    </h2>
+
+                    <p>
+                        Manage all company assets.
+                    </p>
+
+                </div>
+
+
+                <!-- ADD ASSET -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Add Asset
+                            </h3>
+
+                            <p>
+                                Register a new company asset
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Asset Name
+                            </label>
+
+                            <input type="text"
+                                   id="assetName"
+                                   placeholder="Enter asset name">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Asset Type ID
+                            </label>
+
+                            <input type="number"
+                                   id="assetTypeId"
+                                   placeholder="Enter asset type ID">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Serial Number
+                            </label>
+
+                            <input type="text"
+                                   id="serialNumber"
+                                   placeholder="Enter serial number">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Purchase Date
+                            </label>
+
+                            <input type="date"
+                                   id="purchaseDate">
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="primary-button form-button"
+                            onclick="addAsset()">
+
+                        Add Asset
+
+                    </button>
+
+                </div>
+
+
+                <!-- ASSET LIST -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Asset List
+                            </h3>
+
+                            <p>
+                                All company assets
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container"
+                         id="assetList">
+
+                        <div class="empty-message">
+                            Loading assets...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ASSET TYPES ================= -->
+
+            <section id="assetTypes"
+                     class="section hidden">
+
+                <div class="section-header">
+
+                    <h2>
+                        Asset Types
+                    </h2>
+
+                    <p>
+                        Manage different categories of assets.
+                    </p>
+
+                </div>
+
+
+                <!-- ADD ASSET TYPE -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Add Asset Type
+                            </h3>
+
+                            <p>
+                                Create a new asset category
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Type Name
+                            </label>
+
+                            <input type="text"
+                                   id="typeName"
+                                   placeholder="Example: Laptop">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <input type="text"
+                                   id="typeDescription"
+                                   placeholder="Enter description">
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="primary-button form-button"
+                            onclick="addAssetType()">
+
+                        Add Asset Type
+
+                    </button>
+
+                </div>
+
+
+                <!-- ASSET TYPE LIST -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Asset Type List
+                            </h3>
+
+                            <p>
+                                Available asset categories
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container"
+                         id="assetTypeList">
+
+                        <div class="empty-message">
+                            Loading asset types...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ALLOCATIONS ================= -->
+
+            <section id="allocations"
+                     class="section hidden">
+
+                <div class="section-header">
+
+                    <h2>
+                        Allocations
+                    </h2>
+
+                    <p>
+                        Allocate company assets to employees.
+                    </p>
+
+                </div>
+
+
+                <!-- ALLOCATE ASSET -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Allocate Asset
+                            </h3>
+
+                            <p>
+                                Assign an asset to an employee
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Employee ID
+                            </label>
+
+                            <input type="number"
+                                   id="allocationEmployeeId"
+                                   placeholder="Enter employee ID">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Asset ID
+                            </label>
+
+                            <input type="number"
+                                   id="allocationAssetId"
+                                   placeholder="Enter asset ID">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Allocation Date
+                            </label>
+
+                            <input type="date"
+                                   id="allocationDate">
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="primary-button form-button"
+                            onclick="allocateAsset()">
+
+                        Allocate Asset
+
+                    </button>
+
+                </div>
+
+
+                <!-- ALLOCATION LIST -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Allocation List
+                            </h3>
+
+                            <p>
+                                All asset allocations
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container"
+                         id="allocationList">
+
+                        <div class="empty-message">
+                            Loading allocations...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= JOIN REPORT ================= -->
+
+            <section id="joinSection"
+                     class="section hidden">
+
+                <div class="section-header">
+
+                    <h2>
+                        Allocation Report
+                    </h2>
+
+                    <p>
+                        Employee and asset details using JOIN.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Allocated Assets
+                            </h3>
+
+                            <p>
+                                Employee details with allocated assets
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container"
+                         id="joinList">
+
+                        <div class="empty-message">
+                            Loading allocation report...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= REPORTS ================= -->
+
+            <section id="reportsSection"
+                     class="section hidden">
+
+                <div class="section-header">
+
+                    <h2>
+                        Asset Reports
+                    </h2>
+
+                    <p>
+                        Database function and subquery reports.
+                    </p>
+
+                </div>
+
+
+                <div class="report-grid">
+
+
+                    <!-- FUNCTION -->
+
+                    <div class="report-card">
+
+                        <h3>
+                            Employee Asset Count
+                        </h3>
+
+                        <p>
+                            Uses a MySQL function to count
+                            assets currently assigned to an employee.
+                        </p>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Employee ID
+                            </label>
+
+                            <input type="number"
+                                   id="countEmployeeId"
+                                   placeholder="Enter employee ID">
+
+                        </div>
+
+
+                        <button class="primary-button form-button"
+                                onclick="countEmployeeAssets()">
+
+                            Check Asset Count
+
+                        </button>
+
+
+                        <div id="countResult"
+                             class="result-box">
+
+                            Result will appear here
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBQUERY -->
+
+                    <div class="report-card">
+
+                        <h3>
+                            Above Average Asset Types
+                        </h3>
+
+                        <p>
+                            Uses a SQL subquery to find
+                            asset types with above-average allocations.
+                        </p>
+
+
+                        <div class="table-container"
+                             id="aboveAverageList">
+
+                            <div class="empty-message">
+                                Loading report...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
